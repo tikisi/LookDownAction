@@ -1,45 +1,40 @@
-﻿
-# include <Siv3D.hpp> // OpenSiv3D v0.4.2
+﻿#include <Siv3D.hpp>  // OpenSiv3D v0.4.2
+#include "Common.h"
+#include "TestScene.h"
+using namespace common;
+//using App = SceneManager<String>;
 
-void Main()
-{
-	// 背景を水色にする
-	Scene::SetBackground(ColorF(0.8, 0.9, 1.0));
+void Main() {
+  Scene::SetBackground(Palette::Black);
+  Window::Resize(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT);
+  Scene::Resize(DEFAULT_SCENE_WIDTH, DEFAULT_SCENE_HEIGHT);
 
-	// 大きさ 60 のフォントを用意
-	const Font font(60);
+  App manager; 
+  manager.add<TestScene>(U"TestScene");
 
-	// 猫のテクスチャを用意
-	const Texture cat(Emoji(U"🐈"));
+  while (System::Update()) {
+    if(!manager.update()) {
+      break;
+    }
+    //int xRatio = 16;
+    //int yRatio = 9;
 
-	// 猫の座標
-	Vec2 catPos(640, 450);
 
-	while (System::Update())
-	{
-		// テキストを画面の中心に描く
-		font(U"Hello, Siv3D!🐣").drawAt(Scene::Center(), Palette::Black);
+    // 20 × 15
+    /*constexpr int xRatio = DEFAULT_WINDOW_HEIGHT / BLOCK_SIZE;
+    constexpr int yRatio = 480;
+    constexpr int blockSize = 32;
 
-		// 大きさをアニメーションさせて猫を表示する
-		cat.resized(100 + Periodic::Sine0_1(1s) * 20).drawAt(catPos);
+    for (int i = 0; i < xRatio / blockSize; i++) {
+      for (int j = 0; j < yRatio / blockSize; j++) {
+        if (j % 2 != i %2) {
+         Rect(Point(blockSize * i, blockSize * j)
+           , blockSize).draw(Palette::Red);
+        }
+      }
+    }*/
 
-		// マウスカーソルに追従する半透明の赤い円を描く
-		Circle(Cursor::Pos(), 40).draw(ColorF(1, 0, 0, 0.5));
-
-		// [A] キーが押されたら
-		if (KeyA.down())
-		{
-			// Hello とデバッグ表示する
-			Print << U"Hello!";
-		}
-
-		// ボタンが押されたら
-		if (SimpleGUI::Button(U"Move the cat", Vec2(600, 20)))
-		{
-			// 猫の座標を画面内のランダムな位置に移動する
-			catPos = RandomVec2(Scene::Rect());
-		}
-	}
+  }
 }
 
 //
