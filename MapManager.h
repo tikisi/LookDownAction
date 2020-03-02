@@ -29,7 +29,6 @@ class MapManager : public MapMediator {
   std::vector<std::vector<int> > mapChip;
   std::vector<std::vector<int> > mapState;
 
-  // MapManager() = default;
   MapManager(int _xNum = (DEFAULT_SCENE_WIDTH / BLOCK_SIZE),
              int _yNum = (DEFAULT_SCENE_HEIGHT / BLOCK_SIZE),
              int _blockSize = BLOCK_SIZE)

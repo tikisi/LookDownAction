@@ -44,16 +44,6 @@ void MapManager::update() {
       attack++;
     }
   }
-  /*for (auto attack = attacks.begin(); attack != attacks.end(); attack++) {
-    for (auto enemy = enemies.begin(); enemy != enemies.end(); enemy++) {
-      if ((*attack)->getPos() == (*enemy)->getPos()) {
-        delete *enemy;
-        enemies.erase(enemy);
-        delete *attack;
-        attacks.erase(attack);
-      }
-    }
-  }*/
 
   // 当たり判定後のupdate
   player->laterUpdate();
@@ -69,7 +59,10 @@ void MapManager::draw() const {
       // マップチップの描画
       if (mapChip[i][j] == 1) {
         Rect(i * blockSize, j * blockSize, blockSize, blockSize)
-            .drawFrame(1, 1, Palette::Green);
+            .drawFrame(4, 1, Palette::Green);
+        //TextureAsset(U"MapChip1").draw(i * blockSize, j * blockSize);
+      } else if(mapChip[i][j] == 0) {
+        TextureAsset(U"MapChip2").draw(i * blockSize, j * blockSize);
       }
       // 汚れの描画
       if (mapState[i][j] == 1) {

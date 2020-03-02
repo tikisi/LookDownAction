@@ -1,5 +1,7 @@
 #pragma once
 #include <Siv3D.hpp>
+#include "Common.h"
+using Direction = common::Direction;
 
 class MapMediator;
 
@@ -7,9 +9,10 @@ class Enemy {
  protected:
   Point pos;
   MapMediator *mapMediator;
+  Direction dir;
 
  public:
-  Enemy(Point pos, MapMediator *mapMediator) : pos(pos), mapMediator(mapMediator) {}
+  Enemy(Point pos, MapMediator *mapMediator, Direction = Direction::Down) : pos(pos), mapMediator(mapMediator) {}
 
   virtual void update() = 0;
   virtual void laterUpdate(){};
@@ -29,6 +32,6 @@ class RandomRoomba : public Enemy {
   }
 
   void update() override;
+  void draw() const override;
   void laterUpdate() override;
-  virtual void draw() const { Enemy::draw(); };
 };

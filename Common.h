@@ -9,10 +9,10 @@ constexpr int DEFAULT_SCENE_HEIGHT = 480;
 constexpr int BLOCK_SIZE = 32;
 
 enum class Direction : int {
-  Left = 1,
-  Up,
+  Up = 0,
   Right,
-  Down
+  Down,
+  Left
 };
 
 // 方向をもとに単位ベクトルを生成

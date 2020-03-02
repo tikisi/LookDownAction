@@ -9,8 +9,14 @@ void Main() {
   Window::Resize(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT);
   Scene::Resize(DEFAULT_SCENE_WIDTH, DEFAULT_SCENE_HEIGHT);
 
+  // シーンの登録
   App manager; 
   manager.add<TestScene>(U"TestScene");
+
+  // アッセットの登録
+  TextureAsset::Register(U"MapChip1", U"../Asset/chip1.png");
+  TextureAsset::Register(U"MapChip2", U"../Asset/chip2.png");
+  TextureAsset::Register(U"Roomba", U"../Asset/roomba.png");
 
   while (System::Update()) {
     if(!manager.update()) {
