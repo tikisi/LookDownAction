@@ -1,6 +1,8 @@
 ﻿#include <Siv3D.hpp>  // OpenSiv3D v0.4.2
 #include "Common.h"
 #include "TestScene.h"
+#include "Title.h"
+#include "Config.h"
 using namespace common;
 //using App = SceneManager<String>;
 
@@ -11,7 +13,9 @@ void Main() {
 
   // シーンの登録
   App manager; 
+  manager.add<Title>(U"Title");
   manager.add<TestScene>(U"TestScene");
+  manager.add<Config>(U"Config");
 
   // アッセットの登録
   TextureAsset::Register(U"MapChip1", U"../Asset/chip1.png");
