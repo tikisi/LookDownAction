@@ -22,12 +22,14 @@ class MapManager : public MapMediator {
   Array<Enemy *> enemies;
   Array<Attack *> attacks;
 
+  void loadMap(const String mapPath);
+
  public:
   const int xNum;
   const int yNum;
   const int blockSize;
-  std::vector<std::vector<int> > mapChip;
-  std::vector<std::vector<int> > mapState;
+  std::vector<std::vector<int16> > mapChip;
+  std::vector<std::vector<int16> > mapState;
 
   MapManager(int _xNum = (DEFAULT_SCENE_WIDTH / BLOCK_SIZE),
              int _yNum = (DEFAULT_SCENE_HEIGHT / BLOCK_SIZE),
@@ -35,13 +37,16 @@ class MapManager : public MapMediator {
       : xNum(_xNum),
         yNum(_yNum),
         blockSize(_blockSize),
+        mapChip(
+            std::vector<std::vector<int16> >(xNum, std::vector<int16>(yNum, 0))),
         mapState(
-            std::vector<std::vector<int> >(xNum, std::vector<int>(yNum, 0))) {
-    this->player = new Player(Point(1, 1), this);
-    this->enemies.push_back(new RandomRoomba(Point(10, 10), this));
+            std::vector<std::vector<int16> >(xNum, std::vector<int16>(yNum, 0))) {
+    this->player = new Player(Point(3, 3), this);
+    //this->enemies.push_back(new RandomRoomba(Point(10, 10), this));
+    loadMap(U"../Asset/map/stage1.csv");
   }
 
-  void setMapChip(std::vector<std::vector<int> > _mapChip) {
+  void setMapChip(std::vector<std::vector<int16> > _mapChip) {
     this->mapChip = _mapChip;
   }
 

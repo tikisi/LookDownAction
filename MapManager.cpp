@@ -84,6 +84,20 @@ void MapManager::draw() const {
   }
 }
 
+void MapManager::loadMap(const String mapPath) {
+  const CSVData csv(mapPath);
+  
+  if(!csv) {
+    throw Error(U"Failed to load " + mapPath);
+  }
+
+  for(size_t row = 0; row < csv.rows(); ++row) {
+    for(size_t col = 0; col < csv.columns(row); ++col) {
+      this->mapChip[col][row] = Parse<int16>(csv[row][col]);
+    }
+  }
+}
+
 bool MapManager::isEmpty(const Point &pos) const {
   return !(mapChip[pos.x][pos.y] == 1);
 }

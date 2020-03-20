@@ -11,7 +11,7 @@ class TestScene : public App::Scene {
  public:
   TestScene(const InitData& init) : IScene(init) {
     this->mapManager = new MapManager();
-    this->mapManager->setMapChip(transporseMatrix(dummyMap));
+    // this->mapManager->setMapChip(transporseMatrix(dummyMap));
   }
 
   ~TestScene() {
