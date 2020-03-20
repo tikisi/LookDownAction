@@ -25,22 +25,14 @@ class MapManager : public MapMediator {
   void loadMap(const String mapPath);
 
  public:
-  const int xNum;
-  const int yNum;
-  const int blockSize;
   std::vector<std::vector<int16> > mapChip;
   std::vector<std::vector<int16> > mapState;
 
-  MapManager(int _xNum = (DEFAULT_SCENE_WIDTH / BLOCK_SIZE),
-             int _yNum = (DEFAULT_SCENE_HEIGHT / BLOCK_SIZE),
-             int _blockSize = BLOCK_SIZE)
-      : xNum(_xNum),
-        yNum(_yNum),
-        blockSize(_blockSize),
-        mapChip(
-            std::vector<std::vector<int16> >(xNum, std::vector<int16>(yNum, 0))),
+  MapManager()
+      : mapChip(
+            std::vector<std::vector<int16> >(X_NUM, std::vector<int16>(Y_NUM, 0))),
         mapState(
-            std::vector<std::vector<int16> >(xNum, std::vector<int16>(yNum, 0))) {
+            std::vector<std::vector<int16> >(X_NUM, std::vector<int16>(Y_NUM, 0))) {
     this->player = new Player(Point(3, 3), this);
     //this->enemies.push_back(new RandomRoomba(Point(10, 10), this));
     loadMap(U"../Asset/map/stage1.csv");

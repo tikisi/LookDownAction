@@ -54,19 +54,19 @@ void MapManager::update() {
 
 void MapManager::draw() const {
   // マップの描画
-  for (int i = 0; i < xNum; i++) {
-    for (int j = 0; j < yNum; j++) {
+  for (int i = 0; i < X_NUM; i++) {
+    for (int j = 0; j < Y_NUM; j++) {
       // マップチップの描画
       if (mapChip[i][j] == 1) {
-        Rect(i * blockSize, j * blockSize, blockSize, blockSize)
+        Rect(i * BLOCK_SIZE, j * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE)
             .drawFrame(4, 1, Palette::Green);
-        //TextureAsset(U"MapChip1").draw(i * blockSize, j * blockSize);
+        //TextureAsset(U"MapChip1").draw(i * BLOCK_SIZE, j * BLOCK_SIZE);
       } else if(mapChip[i][j] == 0) {
-        TextureAsset(U"MapChip2").draw(i * blockSize, j * blockSize);
+        TextureAsset(U"MapChip2").draw(i * BLOCK_SIZE, j * BLOCK_SIZE);
       }
       // 汚れの描画
       if (mapState[i][j] == 1) {
-        Circle((i + 0.5f) * blockSize, (j + 0.5f) * blockSize, blockSize / 2.0f)
+        Circle((i + 0.5f) * BLOCK_SIZE, (j + 0.5f) * BLOCK_SIZE, BLOCK_SIZE / 2.0f)
             .drawFrame(1, 1, Palette::Pink);
       }
     }
