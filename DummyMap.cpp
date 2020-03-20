@@ -1,7 +1,7 @@
 #include "DummyMap.h"
 using namespace std;
 
-std::vector<std::vector<int> > dummyMap{
+std::vector<std::vector<int16_t> > dummyMap{
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
     {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
     {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
@@ -19,10 +19,10 @@ std::vector<std::vector<int> > dummyMap{
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 };
 
-std::vector<std::vector<int> > transporseMatrix(
-    const std::vector<std::vector<int> > &matrix) {
-  std::vector<std::vector<int> > transporse;
-  transporse.assign(matrix[0].size(), std::vector<int>(matrix.size()));
+std::vector<std::vector<int16_t> > transporseMatrix(
+    const std::vector<std::vector<int16_t> > &matrix) {
+  std::vector<std::vector<int16_t> > transporse;
+  transporse.assign(matrix[0].size(), std::vector<int16_t>(matrix.size()));
   for (int i = 0; i < matrix.size(); i++) {
     for (int j = 0; j < matrix[i].size(); j++) {
       transporse[j][i] = matrix[i][j];
