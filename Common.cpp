@@ -16,4 +16,5 @@ constexpr Point getVecFromDir(int d) {
 
   return Point(0, 0);
 }
+
 }  // namespace common

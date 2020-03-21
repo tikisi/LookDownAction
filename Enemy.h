@@ -12,7 +12,7 @@ class Enemy {
   Direction dir;
 
  public:
-  Enemy(Point pos, MapMediator *mapMediator, Direction = Direction::Down) : pos(pos), mapMediator(mapMediator) {}
+  Enemy(Point pos, Direction dir ,MapMediator *mapMediator) : pos(pos), dir(dir), mapMediator(mapMediator) {}
 
   virtual void update() = 0;
   virtual void laterUpdate(){};
@@ -22,11 +22,12 @@ class Enemy {
 
 class RandomRoomba : public Enemy {
  protected:
+  const int id = 0;
   int frameCounter;
   Point beforePos;
 
  public:
-  RandomRoomba(Point pos, MapMediator *mapChecker) : Enemy(pos, mapChecker) {
+  RandomRoomba(Point pos, Direction dir, MapMediator *mapChecker) : Enemy(pos, dir, mapChecker) {
     this->beforePos = pos;
     frameCounter = 0;
   }

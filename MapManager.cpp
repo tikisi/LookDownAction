@@ -60,13 +60,14 @@ void MapManager::draw() const {
       if (mapChip[i][j] == 1) {
         Rect(i * BLOCK_SIZE, j * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE)
             .drawFrame(4, 1, Palette::Green);
-        //TextureAsset(U"MapChip1").draw(i * BLOCK_SIZE, j * BLOCK_SIZE);
-      } else if(mapChip[i][j] == 0) {
+        // TextureAsset(U"MapChip1").draw(i * BLOCK_SIZE, j * BLOCK_SIZE);
+      } else if (mapChip[i][j] == 0) {
         TextureAsset(U"MapChip2").draw(i * BLOCK_SIZE, j * BLOCK_SIZE);
       }
       // ‰˜‚ê‚Ì•`‰æ
       if (mapState[i][j] == 1) {
-        Circle((i + 0.5f) * BLOCK_SIZE, (j + 0.5f) * BLOCK_SIZE, BLOCK_SIZE / 2.0f)
+        Circle((i + 0.5f) * BLOCK_SIZE, (j + 0.5f) * BLOCK_SIZE,
+               BLOCK_SIZE / 2.0f)
             .drawFrame(1, 1, Palette::Pink);
       }
     }
@@ -84,16 +85,45 @@ void MapManager::draw() const {
   }
 }
 
-void MapManager::loadMap(const String mapPath) {
-  const CSVData csv(mapPath);
-  
-  if(!csv) {
-    throw Error(U"Failed to load " + mapPath);
+void MapManager::loadMap(const int stageNum) {
+  const String csvPath = mapPath + Format(stageNum) + U".csv";
+  const String jsonPath = mapPath + Format(stageNum) + U".json";
+  const CSVData csv(csvPath);
+  const JSONReader json(jsonPath);
+
+  if (!csv) {
+    throw Error(U"Failed to load " + csvPath);
+  }
+  if (!json) {
+    throw Error(U"Failed to load " + jsonPath);
   }
 
-  for(size_t row = 0; row < csv.rows(); ++row) {
-    for(size_t col = 0; col < csv.columns(row); ++col) {
+  // mapChip
+  for (size_t row = 0; row < csv.rows(); ++row) {
+    for (size_t col = 0; col < csv.columns(row); ++col) {
       this->mapChip[col][row] = Parse<int16>(csv[row][col]);
+    }
+  }
+
+  // player
+  {
+    const auto posArray = json[U"player.pos"].getArray<int>();
+    const auto dir = json[U"player.dir"].getString();
+    this->player =
+        new Player(Point(posArray[0], posArray[1]), StringToDir.at(dir), this);
+  }
+
+  // enemy
+  const auto enemyNum = json[U"enemyNum"].get<int>();
+  for (size_t i = 0; i < enemyNum; i++) {
+    const String name = U"enemy" + Format(i);
+    const auto id = json[name + U".id"].get<int>();
+    const auto posArray = json[name + U".pos"].getArray<int>();
+    const auto dir = json[name + U".dir"].getString();
+
+    if (id == 0) {
+      this->enemies.push_back(new RandomRoomba(Point(posArray[0], posArray[1]),
+                                               StringToDir.at(dir), this));
     }
   }
 }

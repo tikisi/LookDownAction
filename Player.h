@@ -14,9 +14,8 @@ class Player {
   int knockBackCounter;
 
  public:
-  Player(Point pos, MapMediator *mapMediator)
-      : pos(pos), mapMediator(mapMediator){
-    this->dir = Direction::Down;
+  Player(Point pos, Direction dir, MapMediator *mapMediator)
+      : pos(pos), dir(dir), mapMediator(mapMediator){
   };
   void update();
   void laterUpdate(); // “–‚½‚è”»’èŒã‚ÌXV

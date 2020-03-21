@@ -22,7 +22,7 @@ class MapManager : public MapMediator {
   Array<Enemy *> enemies;
   Array<Attack *> attacks;
 
-  void loadMap(const String mapPath);
+  void loadMap(const int stageNum);
 
  public:
   std::vector<std::vector<int16> > mapChip;
@@ -33,9 +33,7 @@ class MapManager : public MapMediator {
             std::vector<std::vector<int16> >(X_NUM, std::vector<int16>(Y_NUM, 0))),
         mapState(
             std::vector<std::vector<int16> >(X_NUM, std::vector<int16>(Y_NUM, 0))) {
-    this->player = new Player(Point(3, 3), this);
-    //this->enemies.push_back(new RandomRoomba(Point(10, 10), this));
-    loadMap(U"../Asset/Map/stage1.csv");
+    this->loadMap(1);
   }
 
   void setMapChip(std::vector<std::vector<int16> > _mapChip) {
