@@ -35,7 +35,7 @@ class MapManager : public MapMediator {
             std::vector<std::vector<int16> >(X_NUM, std::vector<int16>(Y_NUM, 0))) {
     this->player = new Player(Point(3, 3), this);
     //this->enemies.push_back(new RandomRoomba(Point(10, 10), this));
-    loadMap(U"../Asset/map/stage1.csv");
+    loadMap(U"../Asset/Map/stage1.csv");
   }
 
   void setMapChip(std::vector<std::vector<int16> > _mapChip) {
