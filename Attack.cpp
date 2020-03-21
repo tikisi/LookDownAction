@@ -2,7 +2,7 @@
 using namespace common;
 
 void Attack::draw() const {
-  Rect((pos.x + 0.25) * BLOCK_SIZE, (pos.y + 0.25) * BLOCK_SIZE, BLOCK_SIZE / 2)
+  Rect(int((pos.x + 0.25) * BLOCK_SIZE), int((pos.y + 0.25) * BLOCK_SIZE), BLOCK_SIZE / 2)
       .draw(Palette::Aliceblue);
 }
 
