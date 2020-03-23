@@ -29,7 +29,7 @@ void Player::update() {
         }
     }
     if (moveCounter != 0) {
-        constexpr int speed = 2;
+        static constexpr int speed = 2;
         this->drawPos += speed * getVecFromDir(this->dir);
         if (moveCounter++ == BLOCK_SIZE / speed) {
             this->moveCounter = 0;

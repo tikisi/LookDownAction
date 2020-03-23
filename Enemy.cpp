@@ -35,7 +35,7 @@ void RandomRoomba::update() {
     }
 
     if (moveCounter >= 1) {
-        constexpr int speed = 2;
+        inline static constexpr int speed = 2;
         this->drawPos += speed * getVecFromDir(this->dir);
         if (moveCounter++ == BLOCK_SIZE / speed) {
             moveCounter = 0;
