@@ -20,13 +20,13 @@ std::vector<std::vector<int16_t> > dummyMap{
 };
 
 std::vector<std::vector<int16_t> > transporseMatrix(
-    const std::vector<std::vector<int16_t> > &matrix) {
-  std::vector<std::vector<int16_t> > transporse;
-  transporse.assign(matrix[0].size(), std::vector<int16_t>(matrix.size()));
-  for (int i = 0; i < matrix.size(); i++) {
-    for (int j = 0; j < matrix[i].size(); j++) {
-      transporse[j][i] = matrix[i][j];
+    const std::vector<std::vector<int16_t> >& matrix) {
+    std::vector<std::vector<int16_t> > transporse;
+    transporse.assign(matrix[0].size(), std::vector<int16_t>(matrix.size()));
+    for (int i = 0; i < matrix.size(); i++) {
+        for (int j = 0; j < matrix[i].size(); j++) {
+            transporse[j][i] = matrix[i][j];
+        }
     }
-  }
-  return transporse;
+    return transporse;
 }

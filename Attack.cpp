@@ -1,16 +1,16 @@
 #include "Attack.h"
-using namespace common;
+using namespace com;
 
 void Attack::draw() const {
-  Rect(drawPos, BLOCK_SIZE / 2).draw(Palette::Blue);
+    Rect(drawPos, BLOCK_SIZE / 2).draw(Palette::Blue);
 }
 
 void Attack::update() {
-  this->pos.x = (drawPos.x + 0.25f * BLOCK_SIZE) / BLOCK_SIZE;
-  this->pos.y = (drawPos.y + 0.25f * BLOCK_SIZE) / BLOCK_SIZE;
+    this->pos.x = (drawPos.x + 0.25f * BLOCK_SIZE) / BLOCK_SIZE;
+    this->pos.y = (drawPos.y + 0.25f * BLOCK_SIZE) / BLOCK_SIZE;
 }
 
 void StraightAttack::update() {
-  this->drawPos += 3 * getVecFromDir(this->direction);
-  Attack::update();
+    this->drawPos += 3 * getVecFromDir(this->direction);
+    Attack::update();
 }

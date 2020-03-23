@@ -3,48 +3,48 @@
 #include "TestScene.h"
 #include "Title.h"
 #include "Config.h"
-using namespace common;
+using namespace com;
 //using App = SceneManager<String>;
 
 void Main() {
-  Scene::SetBackground(Palette::Black);
-  Window::Resize(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT);
-  Scene::Resize(DEFAULT_SCENE_WIDTH, DEFAULT_SCENE_HEIGHT);
+    Scene::SetBackground(Palette::Black);
+    Window::Resize(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT);
+    Scene::Resize(DEFAULT_SCENE_WIDTH, DEFAULT_SCENE_HEIGHT);
 
-  // シーンの登録
-  App manager; 
-  manager.add<Title>(U"Title");
-  manager.add<TestScene>(U"TestScene");
-  manager.add<Config>(U"Config");
+    // シーンの登録
+    App manager;
+    manager.add<Title>(U"Title");
+    manager.add<TestScene>(U"TestScene");
+    manager.add<Config>(U"Config");
 
-  // アッセットの登録
-  TextureAsset::Register(U"MapChip1", U"../Asset/chip1.png");
-  TextureAsset::Register(U"MapChip2", U"../Asset/chip2.png");
-  TextureAsset::Register(U"Roomba", U"../Asset/roomba.png");
+    // アッセットの登録
+    TextureAsset::Register(U"MapChip1", U"../Asset/chip1.png");
+    TextureAsset::Register(U"MapChip2", U"../Asset/chip2.png");
+    TextureAsset::Register(U"Roomba", U"../Asset/roomba.png");
 
-  while (System::Update()) {
-    if(!manager.update()) {
-      break;
-    }
-    //int xRatio = 16;
-    //int yRatio = 9;
-
-
-    // 20 × 15
-    /*constexpr int xRatio = DEFAULT_WINDOW_HEIGHT / BLOCK_SIZE;
-    constexpr int yRatio = 480;
-    constexpr int blockSize = 32;
-
-    for (int i = 0; i < xRatio / blockSize; i++) {
-      for (int j = 0; j < yRatio / blockSize; j++) {
-        if (j % 2 != i %2) {
-         Rect(Point(blockSize * i, blockSize * j)
-           , blockSize).draw(Palette::Red);
+    while (System::Update()) {
+        if (!manager.update()) {
+            break;
         }
-      }
-    }*/
+        //int xRatio = 16;
+        //int yRatio = 9;
 
-  }
+
+        // 20 × 15
+        /*constexpr int xRatio = DEFAULT_WINDOW_HEIGHT / BLOCK_SIZE;
+        constexpr int yRatio = 480;
+        constexpr int blockSize = 32;
+
+        for (int i = 0; i < xRatio / blockSize; i++) {
+          for (int j = 0; j < yRatio / blockSize; j++) {
+            if (j % 2 != i %2) {
+             Rect(Point(blockSize * i, blockSize * j)
+               , blockSize).draw(Palette::Red);
+            }
+          }
+        }*/
+
+    }
 }
 
 //
