@@ -11,6 +11,6 @@ void Attack::update() {
 }
 
 void StraightAttack::update() {
-  this->drawPos += 2 * getVecFromDir(this->direction);
+  this->drawPos += 3 * getVecFromDir(this->direction);
   Attack::update();
 }
