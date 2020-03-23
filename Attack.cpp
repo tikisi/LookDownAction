@@ -2,12 +2,15 @@
 using namespace common;
 
 void Attack::draw() const {
-  Rect(int((pos.x + 0.25) * BLOCK_SIZE), int((pos.y + 0.25) * BLOCK_SIZE), BLOCK_SIZE / 2)
-      .draw(Palette::Aliceblue);
+  Rect(drawPos, BLOCK_SIZE / 2).draw(Palette::Blue);
+}
+
+void Attack::update() {
+  this->pos.x = (drawPos.x + 0.25f * BLOCK_SIZE) / BLOCK_SIZE;
+  this->pos.y = (drawPos.y + 0.25f * BLOCK_SIZE) / BLOCK_SIZE;
 }
 
 void StraightAttack::update() {
-  if (moveCounter++ % 20 == 0) {
-    this->pos += getVecFromDir(static_cast<int>(this->direction));
-  }
+  this->drawPos += 2 * getVecFromDir(this->direction);
+  Attack::update();
 }

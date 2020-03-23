@@ -6,9 +6,13 @@
 class Attack {
  protected:
   Point pos;
+  Point drawPos;
 
  public:
-  Attack(Point _pos) : pos(_pos) {}
+  Attack(Point _pos) : pos(_pos) {
+    this->drawPos = Point(int((pos.x + 0.25) * common::BLOCK_SIZE),
+                          int((pos.y + 0.25) * common::BLOCK_SIZE));
+  }
 
   virtual void update() = 0;
   virtual void draw() const;

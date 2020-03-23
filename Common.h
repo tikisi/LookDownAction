@@ -25,6 +25,8 @@ const std::map<String, Direction> StringToDir{{U"Up", Direction::Up},
                                               {U"Left", Direction::Left}};
 
 // 方向をもとに単位ベクトルを生成
-extern constexpr Point getVecFromDir(int d);
+extern Point getVecFromDir(int d);
+extern Point getVecFromDir(Direction d);
+
 
 }  // namespace common

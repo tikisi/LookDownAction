@@ -2,7 +2,7 @@
 
 namespace common {
 // 方向をもとに単位ベクトルを生成
-constexpr Point getVecFromDir(int d) {
+Point getVecFromDir(int d) {
   switch (d) {
     case 0:
       return Point::Up();
@@ -11,6 +11,21 @@ constexpr Point getVecFromDir(int d) {
     case 2:
       return Point::Down();
     case 3:
+      return Point::Left();
+  }
+
+  return Point(0, 0);
+}
+
+Point getVecFromDir(Direction d) {
+  switch (d) {
+    case Direction::Up:
+      return Point::Up();
+    case Direction::Right:
+      return Point::Right();
+    case Direction::Down:
+      return Point::Down();
+    case Direction::Left:
       return Point::Left();
   }
 
