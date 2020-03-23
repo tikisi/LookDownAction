@@ -1,18 +1,22 @@
 #pragma once
 #include <Siv3D.hpp>
+
 #include "Common.h"
-using Direction = common::Direction;
 
 class MapMediator;
 
 class Enemy {
+  using Direction = common::Direction;
  protected:
   Point pos;
-  MapMediator *mapMediator;
+  Point drawPos;
+  Point nextPos;
   Direction dir;
+  MapMediator *mapMediator;
 
  public:
-  Enemy(Point pos, Direction dir ,MapMediator *mapMediator) : pos(pos), dir(dir), mapMediator(mapMediator) {}
+  Enemy(Point pos, Direction dir, MapMediator *mapMediator)
+      : pos(pos), nextPos(pos), dir(dir), mapMediator(mapMediator) {}
 
   virtual void update() = 0;
   virtual void laterUpdate(){};
@@ -21,15 +25,20 @@ class Enemy {
 };
 
 class RandomRoomba : public Enemy {
+  using Direction = common::Direction;
  protected:
   const int id = 0;
-  int frameCounter;
+  uint16 frameCounter;
+  uint16 moveCounter; 
   Point beforePos;
 
  public:
-  RandomRoomba(Point pos, Direction dir, MapMediator *mapChecker) : Enemy(pos, dir, mapChecker) {
+  RandomRoomba(Point pos, Direction dir, MapMediator *mapChecker)
+      : Enemy(pos, dir, mapChecker) {
     this->beforePos = pos;
-    frameCounter = 0;
+    this->drawPos = pos * common::BLOCK_SIZE;
+    this->frameCounter = 0;
+    this->moveCounter = 0;
   }
 
   void update() override;

@@ -14,7 +14,7 @@ void RandomRoomba::update() {
     this->frameCounter = 0;
 
     int random = Random(0, 3);
-    Point nextPos = this->pos + getVecFromDir(random);
+    nextPos = this->pos + getVecFromDir(random);
 
     // ‘O‚ÌˆÊ’u‚É–ß‚éd‚Ý‚ð‰º‚°‚é
     if (beforePos == nextPos) {
@@ -26,16 +26,24 @@ void RandomRoomba::update() {
 
     if (this->mapMediator->isEmpty(nextPos)) {
       this->beforePos = this->pos;
-      this->pos = nextPos;
+      this->moveCounter = 1;
     } else {
       this->frameCounter = 59;
       this->update();
     }
   }
+
+  if(moveCounter >= 1) {
+    this->drawPos += 2 * getVecFromDir(this->dir); 
+    if(moveCounter++ == 2) {
+      moveCounter = 0;
+      this->pos = nextPos;
+    }
+  }
 }
 
 void RandomRoomba::draw() const {
-  TextureAsset(U"Roomba").rotated((int)dir * 90_deg).draw(BLOCK_SIZE * pos.x, BLOCK_SIZE * pos.y);
+  TextureAsset(U"Roomba").rotated((int)dir * 90_deg).draw(drawPos);
 }
 
 void RandomRoomba::laterUpdate() { this->mapMediator->setClean(this->pos); }
