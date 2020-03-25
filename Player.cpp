@@ -3,33 +3,19 @@
 #include "Attack.h"
 #include "MapManager.h"
 
+
 void Player::update() {
     // ˆÚ“®ˆ—
     if (moveCounter == 0) {
-        Point nextPos = pos;
-        if (KeyUp.down()) {
-            nextPos += Point::Up(1);
-            this->dir = Direction::Up;
-        }
-        if (KeyDown.down()) {
-            nextPos += Point::Down(1);
-            this->dir = Direction::Down;
-        }
-        if (KeyRight.down()) {
-            nextPos += Point::Right(1);
-            this->dir = Direction::Right;
-        }
-        if (KeyLeft.down()) {
-            nextPos += Point::Left(1);
-            this->dir = Direction::Left;
-        }
-        if (mapMediator->isEmpty(nextPos) && pos != nextPos) {
-            // this->pos = nextPos;
-            this->moveCounter = 1;
+        const Key key = getMinKey(getMinKey(KeyUp, KeyDown), getMinKey(KeyLeft, KeyRight));
+        if (key.pressed()) {
+            this->dir = getDirFromKey(key);
+            if (mapMediator->isEmpty(pos + getVecFromDir(dir)))
+                this->moveCounter = 1;
         }
     }
     if (moveCounter != 0) {
-        constexpr int speed = 2;
+        static constexpr int speed = 2;
         this->drawPos += speed * getVecFromDir(this->dir);
         if (moveCounter++ == BLOCK_SIZE / speed) {
             this->moveCounter = 0;
@@ -62,5 +48,35 @@ void Player::draw() const {
 void Player::setKnockBack() {
     if (this->knockBackCounter == 0) {
         this->knockBackCounter = 1;
+    }
+}
+
+Key Player::getMinKey(const Key& a, const Key& b) {
+    return std::min(a, b, [](const Key& a, const Key& b) {
+        if(!a.pressed() && b.pressed()) {
+            return false;
+        }
+        if(a.pressed() && !b.pressed()) {
+            return true;
+        }
+        return a.pressedDuration() < b.pressedDuration();
+        });
+}
+
+Direction Player::getDirFromKey(const Key& key) {
+    if (key == KeyUp) {
+        return Direction::Up;
+    }
+    else if (key == KeyDown) {
+        return Direction::Down;
+    }
+    else if (key == KeyRight) {
+        return Direction::Right;
+    }
+    else if (key == KeyLeft) {
+        return Direction::Left;
+    }
+    else {
+        throw "Can't recognize key \n";
     }
 }

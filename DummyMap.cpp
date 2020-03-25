@@ -1,5 +1,4 @@
 #include "DummyMap.h"
-using namespace std;
 
 std::vector<std::vector<int16_t> > dummyMap{
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
