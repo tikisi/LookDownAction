@@ -6,6 +6,7 @@ void MapManager::update() {
     for (const auto& e : this->enemies) {
         e->update();
     }
+    enemyRespawner.update();
     // UŒ‚‚ÌXV
     auto attack = attacks.begin();
     while (attack != attacks.end()) {
@@ -33,6 +34,8 @@ void MapManager::update() {
         bool deleteFlg = false;
         while (enemy != enemies.end()) {
             if ((*enemy)->getPos() == (*attack)->getPos()) {
+                // Ž€‚ñ‚¾‚±‚Æ‚ðRespawner‚É’m‚ç‚¹‚é
+                enemyRespawner.addActiveSpawner((*enemy)->getIndex());
                 enemy = enemies.erase(enemy);
                 attack = attacks.erase(attack);
                 deleteFlg = true;
@@ -122,15 +125,13 @@ void MapManager::loadMap(const int stageNum) {
         String name = U"enemy" + Format(i);
         auto id = json[name + U".id"].get<int>();
         Point pos(json[name + U".posX"].get<int>(), json[name + U".posY"].get<int>());
-        auto dir = json[name + U".dir"].getString();
+        auto dir = StringToDir.at(json[name + U".dir"].getString());
         auto frequency = json[name + U".frequency"].get<int>();
 
-        EnemyInformation* information = new EnemyInformation(id, pos, StringToDir.at(dir), frequency,i);
-        this->enemyInformations.push_back(information);
+        this->enemyRespawner.push_backInformation(id, pos, dir, frequency);
 
         if (id == 0) {
-            this->enemies.push_back(new RandomRoomba(pos,
-                StringToDir.at(dir), this, i));
+            this->enemies.push_back(new RandomRoomba(pos, dir, this, i));
         }
     }
 }
@@ -150,3 +151,5 @@ void MapManager::setClean(const Point& pos) {
 }
 
 void MapManager::addAttack(Attack* attack) { this->attacks.push_back(attack); }
+
+void MapManager::addEnemy(Enemy* enemy) { this->enemies.push_back(enemy); }

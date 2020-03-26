@@ -13,16 +13,17 @@ protected:
     Direction dir;
     MapMediator* mapMediator;
     size_t index;
-    
+
 
 public:
     Enemy(Point pos, Direction dir, MapMediator* mapMediator, size_t index)
-        : pos(pos), dir(dir), mapMediator(mapMediator) , index(index) {}
+        : pos(pos), dir(dir), mapMediator(mapMediator), index(index) {}
 
     virtual void update() = 0;
     virtual void laterUpdate() {};
     virtual void draw() const;
     Point getPos() const { return this->pos; }
+    size_t getIndex() const { return this->index; }
 };
 
 class RandomRoomba : public Enemy {

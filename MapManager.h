@@ -4,7 +4,7 @@
 #include <map>
 
 #include "Enemy.h"
-#include "EnemyInformation.h"
+#include "EnemyRespawner.h"
 #include "Common.h"
 #include "Player.h"
 #include "Attack.h"
@@ -16,14 +16,16 @@ public:
     virtual void setDirt(const Point& pos) = 0;
     virtual void setClean(const Point& pos) = 0;
     virtual void addAttack(Attack* attack) = 0;
+    virtual void addEnemy(Enemy* enemy) = 0;
 };
 
 class MapManager : public MapMediator {
 private:
     Player* player;
     Array<Enemy*> enemies;
-    Array<EnemyInformation *> enemyInformations;
     Array<Attack*> attacks;
+
+    EnemyRespawner enemyRespawner;
 
     void loadMap(const int stageNum);
 
@@ -35,7 +37,8 @@ public:
         : mapChip(
             std::vector<std::vector<int16> >(X_NUM, std::vector<int16>(Y_NUM, 0))),
         mapState(
-            std::vector<std::vector<int16> >(X_NUM, std::vector<int16>(Y_NUM, 0))) {
+            std::vector<std::vector<int16> >(X_NUM, std::vector<int16>(Y_NUM, 0))),
+        enemyRespawner(EnemyRespawner(this)) {
         this->loadMap(1);
     }
 
@@ -51,4 +54,5 @@ public:
     void setDirt(const Point& pos) override;
     void setClean(const Point& pos) override;
     void addAttack(Attack* attack) override;
+    void addEnemy(Enemy* enemy) override;
 };
