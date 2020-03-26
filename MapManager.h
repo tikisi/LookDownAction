@@ -1,8 +1,10 @@
 #pragma once
 #include <Siv3D.hpp>
 #include <vector>
+#include <map>
 
 #include "Enemy.h"
+#include "EnemyInformation.h"
 #include "Common.h"
 #include "Player.h"
 #include "Attack.h"
@@ -20,6 +22,7 @@ class MapManager : public MapMediator {
 private:
     Player* player;
     Array<Enemy*> enemies;
+    Array<EnemyInformation *> enemyInformations;
     Array<Attack*> attacks;
 
     void loadMap(const int stageNum);

@@ -110,23 +110,27 @@ void MapManager::loadMap(const int stageNum) {
 
     // player
     {
-        const auto posArray = json[U"player.pos"].getArray<int>();
-        const auto dir = json[U"player.dir"].getString();
+        Point pos(json[U"player.posX"].get<int>(), json[U"player.posY"].get<int>());
+        auto dir = json[U"player.dir"].getString();
         this->player =
-            new Player(Point(posArray[0], posArray[1]), StringToDir.at(dir), this);
+            new Player(pos, StringToDir.at(dir), this);
     }
 
     // enemy
     const auto enemyNum = json[U"enemyNum"].get<int>();
     for (size_t i = 0; i < enemyNum; i++) {
-        const String name = U"enemy" + Format(i);
-        const auto id = json[name + U".id"].get<int>();
-        const auto posArray = json[name + U".pos"].getArray<int>();
-        const auto dir = json[name + U".dir"].getString();
+        String name = U"enemy" + Format(i);
+        auto id = json[name + U".id"].get<int>();
+        Point pos(json[name + U".posX"].get<int>(), json[name + U".posY"].get<int>());
+        auto dir = json[name + U".dir"].getString();
+        auto frequency = json[name + U".frequency"].get<int>();
+
+        EnemyInformation* information = new EnemyInformation(id, pos, StringToDir.at(dir), frequency,i);
+        this->enemyInformations.push_back(information);
 
         if (id == 0) {
-            this->enemies.push_back(new RandomRoomba(Point(posArray[0], posArray[1]),
-                StringToDir.at(dir), this));
+            this->enemies.push_back(new RandomRoomba(pos,
+                StringToDir.at(dir), this, i));
         }
     }
 }

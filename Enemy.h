@@ -12,10 +12,12 @@ protected:
     Point drawPos;
     Direction dir;
     MapMediator* mapMediator;
+    size_t index;
+    
 
 public:
-    Enemy(Point pos, Direction dir, MapMediator* mapMediator)
-        : pos(pos), dir(dir), mapMediator(mapMediator) {}
+    Enemy(Point pos, Direction dir, MapMediator* mapMediator, size_t index)
+        : pos(pos), dir(dir), mapMediator(mapMediator) , index(index) {}
 
     virtual void update() = 0;
     virtual void laterUpdate() {};
@@ -32,8 +34,8 @@ protected:
     Point beforePos;
 
 public:
-    RandomRoomba(Point pos, Direction dir, MapMediator* mapChecker)
-        : Enemy(pos, dir, mapChecker) {
+    RandomRoomba(Point pos, Direction dir, MapMediator* mapChecker, size_t index)
+        : Enemy(pos, dir, mapChecker, index) {
         this->beforePos = pos;
         this->drawPos = pos * com::BLOCK_SIZE;
         this->frameCounter = 0;

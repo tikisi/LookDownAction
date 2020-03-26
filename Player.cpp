@@ -3,15 +3,14 @@
 #include "Attack.h"
 #include "MapManager.h"
 
-
 void Player::update() {
     // ˆÚ“®ˆ—
     if (moveCounter == 0) {
-        const Key key = getMinKey(getMinKey(KeyUp, KeyDown), getMinKey(KeyLeft, KeyRight));
+        const Key key =
+            getMinKey(getMinKey(KeyUp, KeyDown), getMinKey(KeyLeft, KeyRight));
         if (key.pressed()) {
             this->dir = getDirFromKey(key);
-            if (mapMediator->isEmpty(pos + getVecFromDir(dir)))
-                this->moveCounter = 1;
+            if (mapMediator->isEmpty(pos + getVecFromDir(dir))) this->moveCounter = 1;
         }
     }
     if (moveCounter != 0) {
@@ -53,10 +52,10 @@ void Player::setKnockBack() {
 
 Key Player::getMinKey(const Key& a, const Key& b) {
     return std::min(a, b, [](const Key& a, const Key& b) {
-        if(!a.pressed() && b.pressed()) {
+        if (!a.pressed() && b.pressed()) {
             return false;
         }
-        if(a.pressed() && !b.pressed()) {
+        if (a.pressed() && !b.pressed()) {
             return true;
         }
         return a.pressedDuration() < b.pressedDuration();
